@@ -15,6 +15,7 @@ There are different ways you can use ```requiremock```, you can.
 - mock things that match the string passed to require with wildcard ```*```
 - mock things that match the string passed to require with a ```RegExp```
 - when you mock you can have the mock you pass be supplied by a function
+- when you mock you can replace the require of one file for another, either with a string or a string supplied by a function
 Each of these uses is described in detail below.
 
 NOTE: When matching, matching is done both on the string passed to ```require``` and the complete
@@ -98,14 +99,14 @@ So in this example we want to intercept all ```require``` statements for anythin
 instrumented version of the file.
 ```
 var requireMock = require("requiremock")(__filename);
-requireMock.mock(
+requireMock.mockFilePath(
 	path.join(process.cwd(), "lib") + "*",
 	function(stringPassedToRequire, filePathRequired, fileDoingRequire){
 		var instrumentedFilePath = filePathRequired.replace(
 			path.join(process.cwd(), "lib"),
 			path.join(process.cwd(), ".coverage")
 		);
-		return require(instrumentedFilePath);
+		return instrumentedFilePath;
 	}
 );
 requireMock("./runAllTests.js"); //all requires done while running tests, will be served instrumented files
