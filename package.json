@@ -25,6 +25,6 @@
 		"sinon":"",
 		"sinon-chai":"",
 		"jshint":"",
-		"nodecoverage":">=0.2.2"
+		"nodecoverage":"0.2.2"
 	}
 }
