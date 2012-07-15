@@ -1,0 +1,30 @@
+{
+	"author":"Allan Ebdrup",
+	"name":"requiremock",
+	"version":"1.0.0",
+	"repository":{
+		"type":"git",
+		"url":"https://github.com/Muscula/requiremock"
+	},
+	"private":false,
+	"main":"./lib/requiremock.js",
+	"engines":{
+		"node":">=0.6.20",
+		"npm":">=1.1.9"
+	},
+	"dependencies":{
+	},
+	"scripts":{
+		"test":"node ./bin/runTests.js",
+		"cov":"node ./bin/runCoverage.js"
+	},
+	"devDependencies":{
+		"coffee-script": "",
+		"mocha":"",
+		"chai":"",
+		"sinon":"",
+		"sinon-chai":"",
+		"jshint":"",
+		"nodecoverage":">=0.2.2"
+	}
+}
