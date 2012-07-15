@@ -97,7 +97,7 @@ the instrumented version of the file is located in ```.coverage/app.js```.
 So in this example we want to intercept all ```require``` statements for anything inside ```lib``` and serve the
 instrumented version of the file.
 ```
-requireMock = require("requiremock");
+var requireMock = require("requiremock")(__filename);
 requireMock.mock(
 	path.join(process.cwd(), "lib") + "*",
 	function(stringPassedToRequire, filePathRequired, fileDoingRequire){

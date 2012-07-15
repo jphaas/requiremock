@@ -18,6 +18,13 @@ describe("When using requiremock", function(){
 		expect(requireMockResult).to.eql({ success: true });
 	});
 
+	it("handles json requires", function (){
+		var requireMockResult = requireMock("../requireExamples/json/test.js");
+		var requireResult = require("../requireExamples/json/test.js");
+		expect(requireMockResult).to.eql(requireResult);
+		expect(requireMockResult).to.eql({ success: true });
+	});
+
 	it("handles standard coffee requires", function (){
 		var requireMockResult = requireMock("../requireExamples/standardCoffee/test.coffee");
 		var requireResult = require("../requireExamples/standardCoffee/test.coffee");
