@@ -8,23 +8,15 @@ Installation
 ```npm install requiremock```
 
 
-Usage
------
+Features
+--------
 There are different ways you can use ```requiremock```, you can.
-- mock things that match the exact string passed to require
-- mock things that match the string passed to require with wildcard ```*```
-- mock things that match the string passed to require with a ```RegExp```
-- you can have the mock you pass be supplied by a function
-- you can specify what __filename and __dirname should be when you require with requiremock.
-- instead of passing a mock object, you can pass a path to a module to be used as a mock
-
-NOTE: When matching, matching is done both on the string passed to ```require``` and the complete
-path to the file that is required.
-
-NOTE: Nested ```require``` statements are also mocked, so if you mock ```fs``` and use ```requiremock``` on  a file
-```A`` that requires a file ```B``` that requires a file ```C``` and the file ```C``` has the statement
-```require("fs")``` that require is mocked. Also if ```A``` or ```B``` has the statement ```require("fs")```, those are
-also mocked.
+- mock modules that match the exact string passed to ```require```
+- mock modules that match the string passed to ```require``` with wildcard ```*```
+- mock modules that match the string passed to require with a ```RegExp```
+- The mock you pass can be supplied by a function
+- You can specify what __filename and __dirname should be when you require with ```requiremock```
+- Instead of passing a mock module, you can pass a path to a module to be used as a mock
 
 Match the exact string passed to require
 ----------------------------------------
@@ -45,6 +37,14 @@ This will mean that the following code in ```myModule.js``` will output ```my te
 var fs = require("fs");
 console.log(fs.readFileSync("config.txt", "utf-8));
 ```
+
+NOTE: When matching, matching is done both on the string passed to ```require``` and the complete
+path to the file that is required.
+
+NOTE: Nested ```require``` statements are also mocked, so if you mock ```fs``` and use ```requiremock``` on  a file
+```A``` that requires a file ```B``` that requires a file ```C``` and the file ```C``` has the statement
+```require("fs")``` that require is mocked. Also if ```A``` or ```B``` has the statement ```require("fs")```, those are
+also mocked.
 
 
 Match the string passed to require with wildcard ```*```
