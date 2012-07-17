@@ -109,6 +109,7 @@ Have the mock you pass be supplied by a function
  });
  requireMock("./myModule.js");
  ```
+
  This will mean that the following code in ```myModule.js``` will output ```my test file contents```
  ```
  var fs = require("fs");
@@ -131,7 +132,7 @@ This will mean that the following code in ```myModule.js``` will output ```myFil
 console.log(__filename, __dirname);
 ```
 
-NOTE: This can be combined with also mocking things.
+NOTE: This can be combined with mocking.
 
 
 Instead of passing a mock object, you can pass a path to a module to be used as a mock
@@ -148,11 +149,11 @@ var logger = require("./logger.js"); //this returns the mock object in test/mock
 logger.log("test");
 ```
 
-The difference between doing the above and
+The difference between doing the above and:
 ```
 requireMock.mockFilePath("./logger.js", require("../mocks/loggerMock.js));
 ```
-Is that when using ```mockFilePath``` any mocks defined are also applied to ```path.resolve("test/mocks/loggerMock.js)```
+is that when using ```mockFilePath``` any mocks defined are also applied to ```path.resolve("test/mocks/loggerMock.js)```
 You may not need that very often, but I needed it, so I made it.
 
 NOTE: ```mockFilePath``` can also take a function that returns a string as the second parameter.
