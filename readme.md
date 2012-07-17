@@ -158,5 +158,5 @@ requireMock.mockFilePath("./logger.js", require("../mocks/loggerMock.js));
 is that when using ```mockFilePath``` any mocks defined are also applied to ```path.resolve("test/mocks/loggerMock.js)```
 You may not need that very often, but I needed it, so I made it.
 
-NOTE: ```mockFilePath``` can also take a function that returns a string as the second parameter.
+NOTE: ```mockFilePath``` can also take a function that returns a string.
 
