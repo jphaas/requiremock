@@ -62,9 +62,40 @@ describe("mocking", function () {
 		);
 	});
 
+	describe("passing __filename and __dirname", function () {
+
+		it("sets __filename if passed", function () {
+			var testFileName = "MyTestFileName";
+			var requireMockResult = requireMock("../requireExamples/returnFilenameAndDirname/requireMe.js", testFileName);
+			var dirname = path.dirname(path.resolve("test/requireExamples/returnFilenameAndDirname/requireMe.js"));
+			expect(requireMockResult).to.eql({filename:testFileName, dirname:dirname});
+		});
+
+		it("sets __filename  and __dirname if passed", function () {
+			var testFileName = "MyTestFileName";
+			var testDirName = "MyTestDirName";
+			var requireMockResult = requireMock("../requireExamples/returnFilenameAndDirname/requireMe.js", testFileName, testDirName );
+			expect(requireMockResult).to.eql({filename:testFileName, dirname:testDirName});
+		});
+
+		it("sets __dirname if passed", function () {
+			var testDirName = "MyTestDirName";
+			var requireMockResult = requireMock("../requireExamples/returnFilenameAndDirname/requireMe.js", null, testDirName );
+			var filename = path.resolve("test/requireExamples/returnFilenameAndDirname/requireMe.js");
+			expect(requireMockResult).to.eql({filename:filename, dirname:testDirName});
+		});
+
+	});
+
 	describe("fileMocks", function () {
 
-			it("replaces filePath", function () {
+		it("replaces filePath with string passed", function () {
+			requireMock.mockFilePath("./requireMe.js", path.resolve("test/requireExamples/filePathMock/requireMeFilePath.js"));
+			var requireMockResult = requireMock("../requireExamples/filePathMock/test.js");
+			expect(requireMockResult).to.eql({filePathMockSuccess:true});
+		});
+
+		it("replaces filePath by calling function passed", function () {
 			var stub = sinon.stub().returns(path.resolve("test/requireExamples/filePathMock/requireMeFilePath.js"));
 			requireMock.mockFilePath("./require*.js", stub);
 			var requireMockResult = requireMock("../requireExamples/filePathMock/test.js");
