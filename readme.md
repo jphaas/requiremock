@@ -1,7 +1,9 @@
 requiremock
 -----------
 With this you can mock out ```require``` statements. It's good for testing, or intercepting requires.
-I'm using it in ```nodecoverage``` to inject instrumented versions of code.
+
+I'm using it in [nodecoverage](https://github.com/Muscula/nodecoverage) to inject instrumented versions of code,
+for code coverage reports.
 
 Installation
 ------------
