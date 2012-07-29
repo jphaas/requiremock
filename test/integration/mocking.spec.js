@@ -15,7 +15,6 @@ describe("mocking", function () {
 	});
 
 
-
 	it("does not match on not full string", function () {
 		requireMock.mock("./requireMe.j", standardMock);
 		var requireMockResult = requireMock("../requireExamples/standard/test.js");
@@ -80,6 +79,26 @@ describe("mocking", function () {
 		expect(requireMockResult2).to.eql(standardMock);
 	});
 
+	describe("Adding spies in modules also used by requiremock", function () {
+
+		it("does not cause spies to be triggered on fs", function () {
+			var fs = require("fs");
+			var fsSpy = sinon.spy(fs, "existsSync");
+			requireMock.globalMock("fs", fsSpy);
+
+			//act
+			var requireMockResult = requireMock("../requireExamples/spyOnFs/index.js");
+
+			//teardown
+			fs.existsSync.restore();
+
+			//assert
+			expect(fsSpy).to.be.calledTwice;
+			expect(requireMockResult).to.eql({success:true});
+		});
+
+	});
+
 	describe("passing __filename and __dirname", function () {
 
 		it("sets __filename if passed", function () {
@@ -92,13 +111,13 @@ describe("mocking", function () {
 		it("sets __filename  and __dirname if passed", function () {
 			var testFileName = "MyTestFileName";
 			var testDirName = "MyTestDirName";
-			var requireMockResult = requireMock("../requireExamples/returnFilenameAndDirname/requireMe.js", testFileName, testDirName );
+			var requireMockResult = requireMock("../requireExamples/returnFilenameAndDirname/requireMe.js", testFileName, testDirName);
 			expect(requireMockResult).to.eql({filename:testFileName, dirname:testDirName});
 		});
 
 		it("sets __dirname if passed", function () {
 			var testDirName = "MyTestDirName";
-			var requireMockResult = requireMock("../requireExamples/returnFilenameAndDirname/requireMe.js", null, testDirName );
+			var requireMockResult = requireMock("../requireExamples/returnFilenameAndDirname/requireMe.js", null, testDirName);
 			var filename = path.resolve("test/requireExamples/returnFilenameAndDirname/requireMe.js");
 			expect(requireMockResult).to.eql({filename:filename, dirname:testDirName});
 		});
