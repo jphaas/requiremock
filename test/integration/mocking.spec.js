@@ -14,6 +14,8 @@ describe("mocking", function () {
 		expect(requireMockResult).to.eql(standardMock);
 	});
 
+
+
 	it("does not match on not full string", function () {
 		requireMock.mock("./requireMe.j", standardMock);
 		var requireMockResult = requireMock("../requireExamples/standard/test.js");
@@ -60,6 +62,22 @@ describe("mocking", function () {
 			path.resolve("test/requireExamples/standard/requireMe.js"),
 			path.resolve("test/requireExamples/standard/test.js")
 		);
+	});
+
+	it("only mocks once", function () {
+		requireMock.mock("*requireMe.js", standardMock);
+		var requireMockResult = requireMock("../requireExamples/standard/requireMe.js");
+		expect(requireMockResult).to.eql(standardMock);
+		var requireMockResult2 = requireMock("../requireExamples/standard/requireMe.js");
+		expect(requireMockResult2).to.eql({success:true});
+	});
+
+	it("mocks globally", function () {
+		requireMock.globalMock("*requireMe.js", standardMock);
+		var requireMockResult = requireMock("../requireExamples/standard/requireMe.js");
+		expect(requireMockResult).to.eql(standardMock);
+		var requireMockResult2 = requireMock("../requireExamples/standard/requireMe.js");
+		expect(requireMockResult2).to.eql(standardMock);
 	});
 
 	describe("passing __filename and __dirname", function () {

@@ -23,7 +23,7 @@ There are different ways you can use ```requiremock```, you can.
 Match the exact string passed to require
 ----------------------------------------
 You can mock out the result of ```require("fs")``` in the file ```test.js``` like this
-```
+```js
 var fsMock = {
 	readFileSync: function(){
 		return "my test file contents";
@@ -35,7 +35,7 @@ requireMock.mock("fs", fsMock);
 requireMock("./myModule.js");
 ```
 This will mean that the following code in ```myModule.js``` will output ```my test file contents```
-```
+```js
 var fs = require("fs");
 console.log(fs.readFileSync("config.txt", "utf-8));
 ```
@@ -43,11 +43,8 @@ console.log(fs.readFileSync("config.txt", "utf-8));
 NOTE: When matching, matching is done both on the string passed to ```require``` and the complete
 path to the file that is required.
 
-NOTE: Nested ```require``` statements are also mocked, so if you mock ```fs``` and use ```requiremock``` on  a file
-```A``` that requires a file ```B``` that requires a file ```C``` and the file ```C``` has the statement
-```require("fs")``` that require is mocked. Also if ```A``` or ```B``` has the statement ```require("fs")```, those are
-also mocked.
-
+NOTE: When a mock has been served once, that mock will be removed from the list of mocks. If you want to mock
+every single ```require``` made for you mock, you should use ```globalMock``` described below.
 
 Match the string passed to require with wildcard ```*```
 --------------------------------------------------------
@@ -119,6 +116,25 @@ Have the mock you pass be supplied by a function
  ```
 In this example we are not really using the function for anything, but you can see the parameters passed
 in the parameter names above.
+
+Mock all requires for a module, including all nested requires
+-------------------------------------------------------------
+```js
+var fsMock = {
+	readFileSync: function(){
+		return "my test file contents";
+	}
+}
+
+var requireMock = require("requiremock")(__filename);
+requireMock.globalMock("fs", fsMock);
+requireMock("./A.js");
+```
+
+NOTE: Nested ```require``` statements are also mocked, so if you globalMock ```fs``` and use ```requiremock``` on  a file
+```A``` that requires a file ```B``` that requires a file ```C``` and the file ```C``` has the statement
+```require("fs")``` that require is mocked. Also if ```A``` or ```B``` has the statement ```require("fs")```, those are
+also mocked.
 
 
 Specify what __filename and __dirname should be
