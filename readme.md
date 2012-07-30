@@ -117,7 +117,7 @@ Have the mock you pass be supplied by a function
  This will mean that the following code in ```myModule.js``` will output ```my test file contents```
  ```js
  var fs = require("fs");
- console.log(fs.readFileSync("config.txt", "utf-8));
+ console.log(fs.readFileSync("config.txt", "utf-8"));
  ```
 In this example we are not really using the function for anything, but you can see the parameters passed
 in the parameter names above.
