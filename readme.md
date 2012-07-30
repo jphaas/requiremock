@@ -27,7 +27,7 @@ There are different ways you can use ```requiremock```, you can.
 
 Match the exact string passed to require
 ----------------------------------------
-You can mock out the result of ```require("fs")``` in the file ```test.js``` like this
+You can mock out the result of ```require("fs")``` in the file ```myModule.js``` like this
 ```js
 var fsMock = {
 	readFileSync: function(){
@@ -35,7 +35,7 @@ var fsMock = {
 	}
 }
 
-var requireMock = require("requiremock")(__filename);
+var requireMock = require("requiremock")(__filename); //Always call with __filename
 requireMock.mock("fs", fsMock);
 requireMock("./myModule.js");
 ```
