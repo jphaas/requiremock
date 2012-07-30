@@ -1,8 +1,11 @@
 requiremock
 -----------
-With this you can mock out ```require``` statements. It's good for testing, or intercepting requires.
+With this you can mock out ```require``` statements in ```node.js```. It's good for testing, or intercepting requires.
 
-I'm using it in [nodecoverage](https://github.com/Muscula/nodecoverage) to inject instrumented versions of code,
+I'm using ```requiremock``` for testing, for example in my module for error handling
+[nodeerrors](https://github.com/Muscula/nodeerrors). Take a look at the tests to see how to use it.
+
+I'm also using it in [nodecoverage](https://github.com/Muscula/nodecoverage) to inject instrumented versions of code,
 for code coverage reports.
 
 Installation
