@@ -42,7 +42,7 @@ requireMock("./myModule.js");
 This will mean that the following code in ```myModule.js``` will output ```my test file contents```
 ```js
 var fs = require("fs");
-console.log(fs.readFileSync("config.txt", "utf-8));
+console.log(fs.readFileSync("config.txt", "utf-8"));
 ```
 
 NOTE: When matching, matching is done both on the string passed to ```require``` and the complete
